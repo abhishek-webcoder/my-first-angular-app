@@ -1,0 +1,95 @@
+<div class="container">
+  <h2>{{ title | shorten:15 }}</h2>
+  <hr>
+  <button class="btn btn-danger" (click)="onLogout()">Logout</button>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+              type="text" id="username" 
+              formControlName="username" 
+              class="form-control" 
+              appChkinp
+              placeholder="Please input username">
+            <span *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class="help-block">
+              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
+
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+              type="text" id="email" 
+              formControlName="email" 
+              class="form-control"
+              placeholder="Please input email">
+            <span *ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched"
+              class="help-block">Please enter a valid email!</span>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label><br>
+            <textarea id="address" formControlName="address" class="form-control"
+              placeholder="Please input address..."></textarea><br>
+            <span *ngIf="!signupForm.get('userData.address').valid && signupForm.get('userData.address').touched"
+              class="help-block">Please enter a valid address!</span>
+          </div>
+          <div class="form-group">
+            <label for="image">Image Upload</label><br>
+            <!-- <input type="file" id="image" formControlName="image" (change)="onSelectedFile($event)" /> -->
+            <input type="file" id="image" formControlName="image"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender</label><br>
+          <div class="radio" *ngFor="let gender of genders">
+            <label>
+              <input type="radio" formControlName="gender" [value]="gender"> {{ gender }}
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="country">Country</label><br>
+          <select id="country" formControlName="country" class="form-control">
+            <option [ngValue]="null" disabled>Choose your country</option>
+            <option *ngFor="let c of countries" [ngValue]="c">{{ c }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="country">Favourite fruite</label><br>
+          <div class="row">
+            <div class="col-xs-12">
+              <div *ngFor="let data of Data; let i=index">
+                <label>
+                  <input type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" />
+                  {{data.name}}
+                </label>
+              </div>
+              
+              <p class="error text-info" *ngIf="this.signupForm.controls['checkArray'].errors?.required">
+                Checkbox is required, select atleast one value.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div formArrayName="hobbies">
+          <h4>Add Your Hobbies</h4>
+          <hr>
+          <button class="btn btn-dark" type="button" (click)="onAddHobby()">Add Hobby</button><br><br>
+          <div class="form-group" *ngFor="let hobbyControl of signupForm.get('hobbies')['controls']; let i = index">
+            <input type="text" class="form-control" [formControlName]="i" placeholder="Please input hobby">
+          </div>
+        </div>
+        <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block">Please enter valid data!</span><br>
+        <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

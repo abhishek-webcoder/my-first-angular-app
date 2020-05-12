@@ -1,0 +1,9 @@
+{
+  "/api": {
+    "target": "http://localhost/angular_file/application/",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
