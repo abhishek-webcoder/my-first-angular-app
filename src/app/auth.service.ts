@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor() { }
+  constructor() {}
 
   loggedIn = false;
 
   isAuthenticated() {
-    const promise = new Promise(
-      (resolve, reject) => {
-        setTimeout(() => {
-          resolve(this.loggedIn);
-        }, 800);
-      }
-    );
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.loggedIn);
+      }, 800);
+    });
     return promise;
   }
 
@@ -26,5 +23,13 @@ export class AuthService {
 
   logout() {
     this.loggedIn = false;
+  }
+
+  getToken() {
+    return localStorage.getItem('access_token');
+  }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('access_token');
   }
 }
