@@ -16,6 +16,8 @@ import { AuthGuardService } from './auth-guard.service';
 import { CanDeactivateGuardService } from './can-deactivate-guard.service';
 import { ServerService } from './server.service';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 //import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 // function tokenGetter() {
@@ -48,6 +50,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     // JwtModule.forRoot({
     //   jwtOptionsProvider: {
     //     provide: JWT_OPTIONS,
@@ -72,8 +76,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
